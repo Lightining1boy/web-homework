@@ -17,13 +17,14 @@ class Transaction extends React.Component {
   }
 
   sendData () {
+    const { sendTransaction } = this.props
     const { credit, debit, amount, description } = this.state
     if (amount === '' || description === '') {
       alert('Amount or Description is left blank')
     } else if (credit === false && debit === false) {
       alert('Must select Credit or Debit')
     } else {
-      console.log('sent')
+      sendTransaction(this.state)
     }
   }
 
@@ -59,7 +60,7 @@ class Transaction extends React.Component {
               Description <input name='description' onChange={(e) => this.handleChange(e)} value={description} />
           </li>
           <li>
-            <button >
+            <button css={sendButton} onClick={this.sendData}>
               <Link to='/'> Send </Link>
             </button>
           </li>
@@ -73,11 +74,9 @@ class Transaction extends React.Component {
 }
 export default Transaction
 
-const activeButton = css`
-  :active {
-    background-color: red;
-    border-radius: 50px;
-  }
+const sendButton = css`
+  border: transparent;
+  font-size: 17px;
 `
 const outline = css`
 position: fixed;
@@ -100,6 +99,7 @@ margin: auto;
 background: white;
 list-style-type: none;
 padding: 10px;
+border-radius: 10px;
 `
 const listItem = css`
 padding: 5px;

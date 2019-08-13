@@ -8,10 +8,24 @@ class MainPage extends React.Component {
     super(props)
     this.state = {
       clickedStore: '',
-      transactionHistory: []
+      transactionHistory: [],
+      creditAmount: 0,
+      debitAmount: 1000
     }
 
-    this.merchantClicked = this.merchantClicked.bind(this);
+    this.merchantClicked = this.merchantClicked.bind(this)
+    this.sendTransaction = this.sendTransaction.bind(this)
+  }
+
+  sendTransaction (transaction) {
+    const { creditAmount, debitAmount, transactionHistory } = this.state
+    const { credit, debit, amount, description } = transaction
+    // const newtransactionHistory = transactionHistory.push()
+    if (credit === true) {
+      this.setState({ creditAmount: creditAmount - amount })
+    } else if (debit === true) {
+      this.setState({ debitAmount: debitAmount - amount })
+    }
   }
 
   merchantClicked (store) {
@@ -19,18 +33,22 @@ class MainPage extends React.Component {
   }
 
   render () {
+    const { creditAmount, debitAmount, transactionHistory } = this.state
     return (
       <Router>
         <TransactionList merchantClicked={this.merchantClicked} />
+        Debit Card Amount - {debitAmount}
+        <br />
+        Credit Card Amount - {creditAmount}
+        <br />
+
         <Route exact path='/' />
-        <Route component={Transaction} exact path='/transaction' />
+        <Route exact path='/transaction' render={(props) => <Transaction sendTransaction={this.sendTransaction} />} />
       </Router>
     )
   }
-  
 }
 export default MainPage
-
 
 const layoutStyle = css`
     display: grid;
