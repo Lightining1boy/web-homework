@@ -6,5 +6,16 @@
   "repository": "https://github.com/DivvyPayHQ/web-homework",
   "author": "Lance Wintch <lance.wintch@divvypay.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -d --watch",
+    "start": "nodemon server/index.js"
+  },
+  "dependencies": {
+    "yarn": "^1.17.3"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.6"
+  }
 }

@@ -1,32 +1,36 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
-import { Home } from './home'
+import Transaction from './Transaction'
+import TransactionList from './TransactionList'
+class MainPage extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      clickedStore: '',
+      transactionHistory: []
+    }
 
-function AppRouter () {
-  return (
-    <Router>
-      <div css={layoutStyle}>
-        <nav css={navStyle}>
-          <ul >
-            <li>
-              <Link to='/'>Home</Link>
-            </li>
-            <li>
-              <Link to='/another'>Another route</Link>
-            </li>
-          </ul>
-        </nav>
-        <div className='main-content' css={contentStyle}>
-          <Route component={Home} exact path='/' />
-          <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
-        </div>
-      </div>
-    </Router>
-  )
+    this.merchantClicked = this.merchantClicked.bind(this);
+  }
+
+  merchantClicked (store) {
+    this.setState({ clickedStore: store })
+  }
+
+  render () {
+    return (
+      <Router>
+        <TransactionList merchantClicked={this.merchantClicked} />
+        <Route exact path='/' />
+        <Route component={Transaction} exact path='/transaction' />
+      </Router>
+    )
+  }
+  
 }
+export default MainPage
 
-export default AppRouter
 
 const layoutStyle = css`
     display: grid;
