@@ -3,12 +3,15 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 import Transaction from './Transaction'
 import TransactionList from './TransactionList'
+import fakeData from './fakeData'
+import TransactionHistory from './TransactionHistory'
+
 class MainPage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
       clickedStore: '',
-      transactionHistory: [],
+      transactionHistory: fakeData.history,
       creditAmount: 0,
       debitAmount: 1000
     }
@@ -41,7 +44,7 @@ class MainPage extends React.Component {
         <br />
         Credit Card Amount - {creditAmount}
         <br />
-
+        <TransactionHistory transactionHistory={transactionHistory} />
         <Route exact path='/' />
         <Route exact path='/transaction' render={(props) => <Transaction sendTransaction={this.sendTransaction} />} />
       </Router>

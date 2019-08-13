@@ -9,17 +9,20 @@ const fakeData = {
   history: [
     {
       merchant: 'InNOut',
-      credit: -12.50,
+      type: 'credit',
+      amount: -12.50,
       description: 'Lunch'
     },
     {
       merchant: 'BestBuy',
-      credit: -535.23,
+      type: 'debit',
+      amount: -512.93,
       description: 'New Tv'
     },
     {
       merchant: 'BestBuy',
-      credit: -400.23,
+      type: 'debit',
+      amount: -412.45,
       description: 'New Playstation'
     }
   ]
