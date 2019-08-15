@@ -14,19 +14,19 @@ class TransactionHistory extends React.Component {
   }
 
   chosenEdit (transaction) {
-    console.log(transaction)
     this.setState({ chosenTransaction: transaction })
   }
 
   render () {
     const { chosenTransaction } = this.state
-    const { transactionHistory, cancelTransaction } = this.props
+    const { transactionHistory, cancelTransaction, saveEditedTransaction } = this.props
     let count = 0
     return (
       <Router>
         <h3 css={Title}> Transaction History </h3>
         <ul css={TH} >
           {transactionHistory.history.map((transaction) => {
+            transaction.id = count
             const { amount, description, credit } = transaction
             let type = ''
             if (credit) {
@@ -45,7 +45,7 @@ class TransactionHistory extends React.Component {
               </li>
             )
           })}
-          <Route exact path='/EditTransaction' render={(props) => <EditTransaction chosenTransaction={chosenTransaction} />} />
+          <Route exact path='/EditTransaction' render={(props) => <EditTransaction chosenTransaction={chosenTransaction} saveEditedTransaction={saveEditedTransaction}/>} />
         </ul>
       </Router>
     )
@@ -53,7 +53,8 @@ class TransactionHistory extends React.Component {
 }
 TransactionHistory.propTypes = {
   transactionHistory: PropTypes.object,
-  cancelTransaction: PropTypes.function
+  cancelTransaction: PropTypes.function,
+  saveEditedTransaction: PropTypes.function
 }
 const TH = css`
 margin-left: 35%;

@@ -1,18 +1,30 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 class EditTransaction extends React.Component {
   constructor (props) {
     super(props)
-    const { amount, description, credit, debit } = this.props.chosenTransaction
+    const { amount, description, credit, debit, id } = this.props.chosenTransaction
     this.state = {
+      credit: credit,
+      debit: debit,
       amount: amount,
       description: description,
-      credit: credit,
-      debit: debit
+      id: id
     }
     this.edit = this.edit.bind(this)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick (event) {
+    const { value } = event.target
+    if (value === 'credit') {
+      this.setState({ credit: true, debit: false })
+    } else {
+      this.setState({ credit: false, debit: true })
+    }
   }
 
   edit (e) {
@@ -21,6 +33,7 @@ class EditTransaction extends React.Component {
   }
 
   render () {
+    const { saveEditedTransaction } = this.props
     const { amount, description } = this.state
     return (
       <div css={outline}>
@@ -38,7 +51,7 @@ class EditTransaction extends React.Component {
               Description <input name='description' onChange={(e) => this.edit(e)} value={description} />
           </li>
           <li>
-            <button css={saveButton} >
+            <button css={saveButton} onClick={() => saveEditedTransaction(this.state)}>
               <Link to='/'> Save </Link>
             </button>
           </li>
@@ -49,6 +62,9 @@ class EditTransaction extends React.Component {
       </div>
     )
   }
+}
+EditTransaction.propTypes = {
+  saveEditedTransaction: PropTypes.function
 }
 
 const saveButton = css`

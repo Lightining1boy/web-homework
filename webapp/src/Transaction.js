@@ -9,10 +9,8 @@ class Transaction extends React.Component {
     this.state = {
       amount: '$',
       description: '',
-      credit: false,
-      debit: false,
-      merchant_id: 1,
-      user_id: 1
+      credit: true,
+      debit: false
     }
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
