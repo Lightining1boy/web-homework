@@ -1,45 +1,50 @@
 import React from 'react'
 import { css } from '@emotion/core'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+
 class Transaction extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      amount: '$',
+      description: '',
       credit: false,
       debit: false,
-      amount: '',
-      description: ''
+      merchant_id: 1,
+      user_id: 1
     }
-
     this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.sendData = this.sendData.bind(this)
   }
 
+  static propTypes = {
+    sendTransaction: PropTypes.function
+  }
+
   sendData () {
     const { sendTransaction } = this.props
-    const { credit, debit, amount, description } = this.state
+    const { amount, description } = this.state
     if (amount === '' || description === '') {
       alert('Amount or Description is left blank')
-    } else if (credit === false && debit === false) {
-      alert('Must select Credit or Debit')
     } else {
       sendTransaction(this.state)
+    }
+  }
+
+  handleClick (event) {
+    const { value } = event.target
+    if (value === 'credit') {
+      this.setState({ credit: true, debit: false })
+    } else {
+      this.setState({ credit: false, debit: true })
     }
   }
 
   handleChange (event) {
     const { value, name } = event.target
     this.setState({ [name]: value })
-  }
-
-  handleClick (type) {
-    if (type === 'credit') {
-      this.setState({ 'credit': true, 'debit': false })
-    }
-    if (type === 'debit') {
-      this.setState({ 'credit': false, 'debit': true })
-    }
   }
 
   render () {
@@ -50,11 +55,11 @@ class Transaction extends React.Component {
           <li css={listItem}>
             Amount: <input name='amount' onChange={(e) => this.handleChange(e)} value={amount} />
           </li>
-          <li css={listItem}>
-            <button onClick={() => this.handleClick('credit')} /> Credit
-          </li>
-          <li css={listItem}>
-            <button onClick={() => this.handleClick('debit')} /> Debit
+          <li>
+            <select onChange={(e) => this.handleClick(e)}>
+              <option value='credit'>Credit</option>
+              <option value='debit'>Debit</option>
+            </select>
           </li>
           <li css={listItem}>
               Description <input name='description' onChange={(e) => this.handleChange(e)} value={description} />
@@ -72,6 +77,7 @@ class Transaction extends React.Component {
     )
   }
 }
+
 export default Transaction
 
 const sendButton = css`
