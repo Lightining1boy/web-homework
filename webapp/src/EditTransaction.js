@@ -48,7 +48,9 @@ class EditTransaction extends React.Component {
             </select>
           </li>
           <li css={listItem}>
-              Description <input name='description' onChange={(e) => this.edit(e)} value={description} />
+              Description:
+            <br />
+            <textarea css={textareaCss} name='description' onChange={(e) => this.edit(e)} value={description} />
           </li>
           <li>
             <button css={saveButton} onClick={() => saveEditedTransaction(this.state)}>
@@ -96,5 +98,10 @@ border-radius: 10px;
 `
 const listItem = css`
 padding: 5px;
+`
+const textareaCss = css`
+width: 425px;
+height: 77px;
+font-size: 17px;
 `
 export default EditTransaction

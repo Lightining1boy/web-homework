@@ -60,14 +60,14 @@ class Transaction extends React.Component {
             </select>
           </li>
           <li css={listItem}>
-              Description <input name='description' onChange={(e) => this.handleChange(e)} value={description} />
+              Description:
+            <br />
+            <textarea css={textareaCss} name='description' onChange={(e) => this.handleChange(e)} value={description} />
           </li>
           <li>
             <button css={sendButton} onClick={this.sendData}>
               <Link to='/'> Send </Link>
             </button>
-          </li>
-          <li css={listItem}>
             <Link to='/'>Cancel</Link>
           </li>
         </ul>
@@ -107,4 +107,8 @@ border-radius: 10px;
 `
 const listItem = css`
 padding: 5px;
+`
+const textareaCss = css`
+width: 425px;
+height: 77px;
 `

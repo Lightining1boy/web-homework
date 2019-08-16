@@ -24,7 +24,7 @@ class TransactionHistory extends React.Component {
     return (
       <Router>
         <h3 css={Title}> Transaction History </h3>
-        <ul css={TH} >
+        <div css={TH} >
           {transactionHistory.history.map((transaction) => {
             transaction.id = count
             const { amount, description, credit } = transaction
@@ -35,18 +35,23 @@ class TransactionHistory extends React.Component {
               type = 'Debit'
             }
             return (
-              <li css={singleTransaction} key={count++}>
-            Amount: <u>{amount}</u> Type: <u>{type}</u>
+              <div css={singleTransaction} key={count++}>
+            Amount: <u>{amount}</u>
+                <div css={typeCSS}>
+              Type: <u>{type}</u>
+                </div>
                 <br />
-            Description: <u>{description}</u>
+            Description:
+                <br />
+                <textarea css={textareaCss} value={description} />
                 <br />
                 <button onClick={() => this.chosenEdit(transaction)}><Link to='/EditTransaction'>Edit Transaction</Link></button>
                 <button onClick={() => cancelTransaction(transaction)}>Cancel Transaction</button>
-              </li>
+              </div>
             )
           })}
-          <Route exact path='/EditTransaction' render={(props) => <EditTransaction chosenTransaction={chosenTransaction} saveEditedTransaction={saveEditedTransaction}/>} />
-        </ul>
+          <Route exact path='/EditTransaction' render={(props) => <EditTransaction chosenTransaction={chosenTransaction} saveEditedTransaction={saveEditedTransaction} />} />
+        </div>
       </Router>
     )
   }
@@ -70,5 +75,11 @@ border: solid;
 margin: 5px;
 background: beige;
 font-size: 19px;
+`
+const textareaCss = css`
+font-size: 17px;
+`
+const typeCSS = css`
+float: right;
 `
 export default TransactionHistory

@@ -4,7 +4,7 @@ const fakeData = {
     {
       credit: true,
       debit: false,
-      amount: '$' + 12.50,
+      amount: '$' + 12.51,
       description: 'Lunch'
     },
     {
